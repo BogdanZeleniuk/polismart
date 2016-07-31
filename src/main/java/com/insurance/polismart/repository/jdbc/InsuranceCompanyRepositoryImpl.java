@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import com.insurance.polismart.repository.InsuranceCompanyRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
  * Created by Admin on 29.06.2016.
  */
 @Repository
+@Transactional(readOnly = true)
 public class InsuranceCompanyRepositoryImpl implements InsuranceCompanyRepository {
 
     private static final BeanPropertyRowMapper<InsuranceCompany> MAPPER = BeanPropertyRowMapper.newInstance(InsuranceCompany.class);
@@ -38,6 +40,7 @@ public class InsuranceCompanyRepositoryImpl implements InsuranceCompanyRepositor
     }
 
     @Override
+    @Transactional
     public InsuranceCompany save(InsuranceCompany company) {
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource()
                 .addValue("id",company.getId())
@@ -63,6 +66,7 @@ public class InsuranceCompanyRepositoryImpl implements InsuranceCompanyRepositor
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
         return jdbcTemplate.update("DELETE FROM insurance_companies WHERE id=?", id) != 0;
     }

@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import com.insurance.polismart.repository.UserRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
  * Created by Admin on 29.06.2016.
  */
 @Repository
+@Transactional(readOnly = true)
 public class UserRepositoryImpl implements UserRepository {
 
     private static final BeanPropertyRowMapper<User> MAPPER = BeanPropertyRowMapper.newInstance(User.class);
@@ -38,6 +40,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    @Transactional
     public User save(User user) {
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource()
                 .addValue("id",user.getId())
@@ -59,6 +62,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    @Transactional
     public boolean delete(int user_id) {
         return jdbcTemplate.update("DELETE FROM users WHERE id=?",user_id) != 0;
     }

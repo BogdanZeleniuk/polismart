@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Created by Admin on 29.06.2016.
  */
+@SuppressWarnings(value = "insuranceCompanyJPA")
 @NamedQueries(
         {
                 @NamedQuery(name = InsuranceCompany.GET_All, query = "select company from InsuranceCompany company order by company.amount desc"),

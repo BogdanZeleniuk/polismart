@@ -1,6 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
   <data-source name="polismart@localhost" uuid="53d9c3cf-4c94-4bcb-bffe-7db315521b27">
-    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+    <database-info product="PostgreSQL" version="9.5.3" jdbc-version="4.0" driver-name="PostgreSQL Native Driver" driver-version="PostgreSQL 9.4 JDBC4 (build 1201)">
+      <identifier-quote-string>&quot;</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact"/>
+    <database-model serializer="dbm" rdbms="POSTGRES" format-version="2.5">
+      <database id="1" name="polismart"/>
+      <schema id="2" parent="1" name="public">
+        <object-id>2200</object-id>
+        <comment>standard public schema</comment>
+        <introspection-state-number>13202</introspection-state-number>
+        <introspection-timestamp>2016-07-31.13:22:18.312</introspection-timestamp>
+      </schema>
+      <sequence id="3" parent="2" name="global_seq">
+        <object-id>34745</object-id>
+        <state-number>13198</state-number>
+      </sequence>
+      <table id="4" parent="2" name="insurance_companies">
+        <object-id>34772</object-id>
+        <state-number>13202</state-number>
+      </table>
+      <table id="5" parent="2" name="user_roles">
+        <object-id>34759</object-id>
+        <state-number>13201</state-number>
+      </table>
+      <table id="6" parent="2" name="users">
+        <object-id>34747</object-id>
+        <state-number>13201</state-number>
+      </table>
+      <column id="7" parent="4" name="id">
+        <state-number>13202</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;global_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="8" parent="4" name="name">
+        <state-number>13202</state-number>
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="9" parent="4" name="description">
+        <state-number>13202</state-number>
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="10" parent="4" name="franchise">
+        <state-number>13202</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="11" parent="4" name="amount">
+        <state-number>13202</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <index id="12" parent="4" name="insurance_companies_pkey">
+        <object-id>34779</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="13" parent="4" name="insurance_companies_pkey">
+        <columns>id</columns>
+        <underlying-index>insurance_companies_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+      <column id="14" parent="5" name="user_id">
+        <state-number>13201</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+      </column>
+      <column id="15" parent="5" name="role">
+        <state-number>13201</state-number>
+        <data-type>varchar</data-type>
+      </column>
+      <index id="16" parent="5" name="user_roles_idx">
+        <object-id>34765</object-id>
+        <columns>user_id
+role</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="17" parent="5" name="user_roles_idx">
+        <columns>user_id
+role</columns>
+        <underlying-index>user_roles_idx</underlying-index>
+      </key>
+      <foreign-key id="18" parent="5" name="user_roles_user_id_fkey">
+        <columns>user_id</columns>
+        <ref-key>~.users.users_pkey</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="19" parent="6" name="id">
+        <state-number>13199</state-number>
+        <mandatory>1</mandatory>
+        <data-type>integer</data-type>
+        <default-expression>nextval(&apos;global_seq&apos;::regclass)</default-expression>
+      </column>
+      <column id="20" parent="6" name="name">
+        <state-number>13199</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar</data-type>
+      </column>
+      <column id="21" parent="6" name="email">
+        <state-number>13199</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar</data-type>
+      </column>
+      <column id="22" parent="6" name="password">
+        <state-number>13199</state-number>
+        <mandatory>1</mandatory>
+        <data-type>varchar</data-type>
+      </column>
+      <column id="23" parent="6" name="enabled">
+        <state-number>13199</state-number>
+        <data-type>boolean</data-type>
+        <default-expression>true</default-expression>
+      </column>
+      <column id="24" parent="6" name="registered">
+        <state-number>13199</state-number>
+        <data-type>timestamp</data-type>
+        <default-expression>now()</default-expression>
+      </column>
+      <index id="25" parent="6" name="users_pkey">
+        <object-id>34756</object-id>
+        <columns>id</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <index id="26" parent="6" name="email_idx">
+        <object-id>34758</object-id>
+        <columns>email</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="27" parent="6" name="users_pkey">
+        <columns>id</columns>
+        <underlying-index>users_pkey</underlying-index>
+        <primary>1</primary>
+      </key>
+    </database-model>
   </data-source>
 </component>

@@ -28,7 +28,7 @@ public class DataJpaUserRepositoryImpl implements UserRepository {
 
     @Override
     public User get(int user_id) {
-        return proxyUserRepository.getOne(user_id);
+        return proxyUserRepository.findOne(user_id);
     }
 
     @Override

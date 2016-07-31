@@ -33,6 +33,7 @@ public class User extends NamedEntity{
     @Email
     @Column(name = "email", nullable = false, unique = true)
     @Size(min = 3, max = 30)
+    @NotEmpty
     private String email;
 
     @Column(name = "password", nullable = false)

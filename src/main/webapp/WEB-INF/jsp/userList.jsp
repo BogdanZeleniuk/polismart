@@ -12,6 +12,6 @@
 </head>
 <body>
         <h2>UserList</h2>
-        <h2><a href="index.html">Back to main page.</a></h2>
+        <h2><a href="../../index.html">Back to main page.</a></h2>
 </body>
 </html>
