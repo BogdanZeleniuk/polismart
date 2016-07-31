@@ -34,7 +34,7 @@ public class UserRepositoryImpl implements UserRepository {
     public UserRepositoryImpl(DataSource dataSource) {
         jdbcInsert = new SimpleJdbcInsert(dataSource)
                 .withTableName("users")
-                .usingColumns("id");
+                .usingGeneratedKeyColumns("id");
     }
 
     @Override
@@ -44,7 +44,8 @@ public class UserRepositoryImpl implements UserRepository {
                 .addValue("name",user.getName())
                 .addValue("email",user.getEmail())
                 .addValue("password",user.getPassword())
-                .addValue("enabled",user.isEnabled());
+                .addValue("enabled",user.isEnabled())
+                .addValue("registered", user.getRegistered());
 
         if (user.isNew()){
             Number newId = jdbcInsert.executeAndReturnKey(mapSqlParameterSource);
@@ -52,7 +53,7 @@ public class UserRepositoryImpl implements UserRepository {
         }
         else {
             namedParameterJdbcTemplate.update("" +
-                    "UPDATE users SET name=:name, email=:email, password=:password, enabled=:enabled WHERE id=:id",mapSqlParameterSource);
+                    "UPDATE users SET name=:name, email=:email, password=:password, enabled=:enabled, registered=:registered WHERE id=:id",mapSqlParameterSource);
         }
         return user;
     }

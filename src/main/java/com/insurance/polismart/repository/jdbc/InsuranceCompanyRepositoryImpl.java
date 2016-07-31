@@ -18,18 +18,20 @@ import java.util.List;
  * Created by Admin on 29.06.2016.
  */
 @Repository
-public class InsuranceCompanyImpl implements InsuranceCompanyRepository {
+public class InsuranceCompanyRepositoryImpl implements InsuranceCompanyRepository {
 
     private static final BeanPropertyRowMapper<InsuranceCompany> MAPPER = BeanPropertyRowMapper.newInstance(InsuranceCompany.class);
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private SimpleJdbcInsert jdbcInsert;
+
     @Autowired
-    public InsuranceCompanyImpl(DataSource dataSource) {
+    public InsuranceCompanyRepositoryImpl(DataSource dataSource) {
         this.jdbcInsert = new SimpleJdbcInsert(dataSource)
                 .withTableName("insurance_companies")
                 .usingGeneratedKeyColumns("id");

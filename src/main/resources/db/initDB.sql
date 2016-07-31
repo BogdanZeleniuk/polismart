@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS user_roles;
+DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS insurance_companies;
 DROP SEQUENCE IF EXISTS global_seq;
 
@@ -11,7 +11,8 @@ CREATE TABLE users
   name VARCHAR NOT NULL,
   email VARCHAR NOT NULL,
   password VARCHAR NOT NULL,
-  enabled BOOL DEFAULT TRUE
+  enabled BOOL DEFAULT TRUE,
+  registered TIMESTAMP DEFAULT now()
 );
 CREATE UNIQUE INDEX email_idx ON users(email);
 
