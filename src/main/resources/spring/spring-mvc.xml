@@ -6,6 +6,9 @@
 
     <mvc:annotation-driven/>
 
+    <!-- serve static resources (*.html, ...) from src/main/webapp/ -->
+    <mvc:default-servlet-handler/>
+
     <context:component-scan base-package="com.insurance.polismart.web"/>
 
     <!--  all resources inside folder src/main/webapp/resources are mapped so they can be referred to inside JSP files -->
@@ -18,7 +21,19 @@
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
           p:cacheSeconds="60"
           p:defaultEncoding="UTF-8">
-        <property name="basenames" value="file:///#{systemEnvironment['TOPJAVA_ROOT']}/config/messages/app"/>
+        <property name="basenames" value="file:///#{systemEnvironment['POLISMART_ROOT']}/config/messages/app"/>
     </bean>
+
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="defaultLocale" value="ru"/>
+    </bean>
+
+    <mvc:interceptors>
+        <bean class="com.insurance.polismart.web.interceptor.ModelInterceptor"/>
+
+        <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="lang"/>
+        </bean>
+    </mvc:interceptors>
 
 </beans>

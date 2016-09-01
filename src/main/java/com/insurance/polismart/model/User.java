@@ -15,6 +15,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -31,7 +32,9 @@ import java.util.*;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "email_idx")})
-public class User extends NamedEntity{
+public class User extends NamedEntity implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     public static final String GET_ALL = "User.Get_ALL_SORTED";
     public static final String DELETE = "User.DELETE";
