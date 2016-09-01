@@ -13,7 +13,7 @@ import java.util.List;
  * Created by Admin on 31.07.2016.
  */
 @RestController
-@RequestMapping(value = "/rest/profile/insurance", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/insurance", produces = MediaType.APPLICATION_JSON_VALUE)
 public class InsuranceCompanyRestController extends AbstractInsuranceCompanyController{
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -21,7 +21,7 @@ public class InsuranceCompanyRestController extends AbstractInsuranceCompanyCont
         InsuranceCompany created = super.create(company);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/rest/profile/insurance" + "/{id}")
+                .path("/insurance" + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }

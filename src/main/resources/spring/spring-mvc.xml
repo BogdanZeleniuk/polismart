@@ -28,6 +28,8 @@
         <property name="defaultLocale" value="ru"/>
     </bean>
 
+    <bean class="com.insurance.polismart.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
+
     <mvc:interceptors>
         <bean class="com.insurance.polismart.web.interceptor.ModelInterceptor"/>
 

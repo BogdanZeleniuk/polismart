@@ -33,5 +33,4 @@ public class RootController extends AbstractUserController{
         model.addAttribute("userList", getAll());
         return "userList";
     }
-
 }

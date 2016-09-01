@@ -1,5 +1,7 @@
 package com.insurance.polismart.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 
@@ -51,7 +53,10 @@ public class InsuranceCompany extends BaseEntity{
     public InsuranceCompany() {
     }
 
-    public InsuranceCompany(String name, String description, int franchise, int amount) {
+    public InsuranceCompany(@JsonProperty("name") String name,
+                            @JsonProperty("description") String description,
+                            @JsonProperty("franchise") int franchise,
+                            @JsonProperty("amount") int amount) {
         this(null,name,description,franchise,amount);
     }
 
