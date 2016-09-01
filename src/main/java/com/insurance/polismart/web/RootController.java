@@ -1,6 +1,7 @@
 package com.insurance.polismart.web;
 
 import com.insurance.polismart.service.InsuranceCompanyService;
+import com.insurance.polismart.web.usercontroller.AbstractUserController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Created by Admin on 31.07.2016.
  */
 @Controller
-public class RootController {
+public class RootController extends AbstractUserController{
 
     @Autowired
     private InsuranceCompanyService insuranceCompanyService;
@@ -28,7 +29,8 @@ public class RootController {
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String userList(){
+    public String userList(Model model){
+        model.addAttribute("userList", getAll());
         return "userList";
     }
 

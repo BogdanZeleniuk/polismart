@@ -23,15 +23,19 @@ public abstract class AbstractUserController {
         user.setId(userId);
         service.update(user);
     }
+
     public void delete(int userId){
         service.delete(userId);
     }
+
     public User get(int userId){
         return service.get(userId);
     }
+
     public List<User> getAll(){
         return service.getAll();
     }
+
     public User getByEmail(String email){
         return service.getByEmail(email);
     }
