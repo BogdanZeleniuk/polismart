@@ -7,11 +7,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
-<head>
-    <title>Edit Insurance Company</title>
-</head>
+<jsp:include page="fragments/headTag.jsp"/>
 <body>
+<jsp:include page="fragments/bodyHeader.jsp"/>
+<section>
+    <h3><fmt:message key="company.add"/></h3>
+    <hr>
     <jsp:useBean id="company" scope="request" type="com.insurance.polismart.model.InsuranceCompany"></jsp:useBean>
         <form method="post" action="insurance">
             <table>
@@ -37,5 +40,7 @@
                 </tbody>
             </table>
         </form>
+</section>
+<jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>

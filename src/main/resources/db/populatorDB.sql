@@ -19,7 +19,7 @@ INSERT INTO user_roles
 INSERT INTO insurance_companies
 (name,description,franchise,amount) VALUES
   ('INGO Ukraine','The best Russian insurance company',0,1037),
-  ('PZU','The best Polish insurance company',0,1037),
+  ('PZU Ukraine','The best Polish insurance company',0,1037),
   ('UNIVES','The best Ukrainian insurance company',0,798),
   ('AXA','The best French insurance company',0,1296),
   ('TALISMAN','The worse Ukrainian insurance company',0,695),

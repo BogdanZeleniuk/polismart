@@ -1,4 +1,4 @@
-package com.insurance.polismart.web.controller;
+package com.insurance.polismart.web.usercontroller;
 
 import com.insurance.polismart.LoggedUser;
 import com.insurance.polismart.model.User;

@@ -1,4 +1,4 @@
-package com.insurance.polismart.web.controller;
+package com.insurance.polismart.web.companycontroller;
 
 import com.insurance.polismart.model.InsuranceCompany;
 import com.insurance.polismart.service.InsuranceCompanyService;
@@ -10,8 +10,7 @@ import java.util.List;
 /**
  * Created by Admin on 06.07.2016.
  */
-@Controller
-public class InsuranceCompanyController {
+public abstract class AbstractInsuranceCompanyController {
 
     @Autowired
     private InsuranceCompanyService companyService;

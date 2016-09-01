@@ -1,6 +1,7 @@
 package com.insurance.polismart.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -8,7 +9,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Created by Admin on 29.06.2016.
  */
-@SuppressWarnings(value = "insuranceCompanyJPA")
+@SuppressWarnings(value = "JpaQlInspection")
 @NamedQueries(
         {
                 @NamedQuery(name = InsuranceCompany.GET_All, query = "select company from InsuranceCompany company order by company.amount desc"),
@@ -39,10 +40,12 @@ public class InsuranceCompany extends BaseEntity{
 
     @Column(name = "franchise", nullable = false)
     @NotNull
+    @Range(min = 0, max = Integer.MAX_VALUE)
     private int franchise;
 
     @Column(name = "amount", nullable = false)
     @NotNull
+    @Range(min = 0, max = Integer.MAX_VALUE)
     private int amount;
 
     public InsuranceCompany() {

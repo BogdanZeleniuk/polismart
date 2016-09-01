@@ -27,6 +27,8 @@
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:4.1.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:4.1.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-test:4.1.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-taglibs:4.1.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-acl:4.1.1.RELEASE" />
           <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
           <element id="library" level="project" name="Maven: org.webjars:bootstrap:3.3.6" />
           <element id="library" level="project" name="Maven: org.webjars.bower:datetimepicker:2.4.7" />

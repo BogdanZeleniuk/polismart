@@ -10,53 +10,53 @@
       <schema id="2" parent="1" name="public">
         <object-id>2200</object-id>
         <comment>standard public schema</comment>
-        <introspection-state-number>13202</introspection-state-number>
-        <introspection-timestamp>2016-07-31.13:22:18.312</introspection-timestamp>
+        <introspection-state-number>13319</introspection-state-number>
+        <introspection-timestamp>2016-08-31.15:15:26.122</introspection-timestamp>
       </schema>
       <sequence id="3" parent="2" name="global_seq">
-        <object-id>34745</object-id>
-        <state-number>13198</state-number>
+        <object-id>35007</object-id>
+        <state-number>13315</state-number>
       </sequence>
       <table id="4" parent="2" name="insurance_companies">
-        <object-id>34772</object-id>
-        <state-number>13202</state-number>
+        <object-id>35034</object-id>
+        <state-number>13319</state-number>
       </table>
       <table id="5" parent="2" name="user_roles">
-        <object-id>34759</object-id>
-        <state-number>13201</state-number>
+        <object-id>35021</object-id>
+        <state-number>13318</state-number>
       </table>
       <table id="6" parent="2" name="users">
-        <object-id>34747</object-id>
-        <state-number>13201</state-number>
+        <object-id>35009</object-id>
+        <state-number>13318</state-number>
       </table>
       <column id="7" parent="4" name="id">
-        <state-number>13202</state-number>
+        <state-number>13319</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
         <default-expression>nextval(&apos;global_seq&apos;::regclass)</default-expression>
       </column>
       <column id="8" parent="4" name="name">
-        <state-number>13202</state-number>
+        <state-number>13319</state-number>
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
       <column id="9" parent="4" name="description">
-        <state-number>13202</state-number>
+        <state-number>13319</state-number>
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
       <column id="10" parent="4" name="franchise">
-        <state-number>13202</state-number>
+        <state-number>13319</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
       </column>
       <column id="11" parent="4" name="amount">
-        <state-number>13202</state-number>
+        <state-number>13319</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
       </column>
       <index id="12" parent="4" name="insurance_companies_pkey">
-        <object-id>34779</object-id>
+        <object-id>35041</object-id>
         <columns>id</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
@@ -67,16 +67,16 @@
         <primary>1</primary>
       </key>
       <column id="14" parent="5" name="user_id">
-        <state-number>13201</state-number>
+        <state-number>13318</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
       </column>
       <column id="15" parent="5" name="role">
-        <state-number>13201</state-number>
+        <state-number>13318</state-number>
         <data-type>varchar</data-type>
       </column>
       <index id="16" parent="5" name="user_roles_idx">
-        <object-id>34765</object-id>
+        <object-id>35027</object-id>
         <columns>user_id
 role</columns>
         <desc-columns></desc-columns>
@@ -94,44 +94,44 @@ role</columns>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
       <column id="19" parent="6" name="id">
-        <state-number>13199</state-number>
+        <state-number>13316</state-number>
         <mandatory>1</mandatory>
         <data-type>integer</data-type>
         <default-expression>nextval(&apos;global_seq&apos;::regclass)</default-expression>
       </column>
       <column id="20" parent="6" name="name">
-        <state-number>13199</state-number>
+        <state-number>13316</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar</data-type>
       </column>
       <column id="21" parent="6" name="email">
-        <state-number>13199</state-number>
+        <state-number>13316</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar</data-type>
       </column>
       <column id="22" parent="6" name="password">
-        <state-number>13199</state-number>
+        <state-number>13316</state-number>
         <mandatory>1</mandatory>
         <data-type>varchar</data-type>
       </column>
       <column id="23" parent="6" name="enabled">
-        <state-number>13199</state-number>
+        <state-number>13316</state-number>
         <data-type>boolean</data-type>
         <default-expression>true</default-expression>
       </column>
       <column id="24" parent="6" name="registered">
-        <state-number>13199</state-number>
+        <state-number>13316</state-number>
         <data-type>timestamp</data-type>
         <default-expression>now()</default-expression>
       </column>
       <index id="25" parent="6" name="users_pkey">
-        <object-id>34756</object-id>
+        <object-id>35018</object-id>
         <columns>id</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
       <index id="26" parent="6" name="email_idx">
-        <object-id>34758</object-id>
+        <object-id>35020</object-id>
         <columns>email</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>

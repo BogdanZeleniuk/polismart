@@ -1,7 +1,7 @@
 package com.insurance.polismart.web;
 
 import com.insurance.polismart.model.InsuranceCompany;
-import com.insurance.polismart.web.controller.InsuranceCompanyController;
+import com.insurance.polismart.web.companycontroller.AbstractInsuranceCompanyController;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -19,13 +19,13 @@ import java.util.Objects;
 public class InsuranceCompanyServlet extends HttpServlet {
 
     private ConfigurableApplicationContext applicationContext;
-    private InsuranceCompanyController insuranceCompanyController;
+    private AbstractInsuranceCompanyController insuranceCompanyController;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         applicationContext = new ClassPathXmlApplicationContext("spring/spring-app.xml","spring/spring-db.xml");
-        insuranceCompanyController = applicationContext.getBean(InsuranceCompanyController.class);
+        insuranceCompanyController = applicationContext.getBean(AbstractInsuranceCompanyController.class);
     }
 
     @Override

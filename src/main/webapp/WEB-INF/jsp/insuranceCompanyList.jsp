@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Admin
@@ -7,12 +6,16 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
-<head>
-    <title>Insurance Company List</title>
-</head>
+<jsp:include page="fragments/headTag.jsp"/>
 <body>
-    <table>
+<jsp:include page="fragments/bodyHeader.jsp"/>
+<section>
+    <h3><fmt:message key="company.title"/></h3>
+    <hr>
+    <table border="1" cellpadding="8" cellspacing="0">
         <thead>
             <tr>
                 <th>Name</th>
@@ -29,12 +32,13 @@
                     <th>${company.description}</th>
                     <th>${company.franchise}</th>
                     <th>${company.amount}</th>
-                    <th><a href="insurance?action=update&id=${company.id}">Update</a></th>
-                    <th><a href="insurance?action=delete&id=${company.id}">Delete</a></th>
+                    <th><a href="insurance/update/id=${company.id}">Update</a></th>
+                    <th><a href="insurance/delete/id=${company.id}">Delete</a></th>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
-    <a href="insurance?action=add">Add new company</a>
+    <a href="insurance/add"><fmt:message key="company.add"/></a>
+</section>
 </body>
 </html>

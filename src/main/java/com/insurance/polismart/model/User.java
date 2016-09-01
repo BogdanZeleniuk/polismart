@@ -1,14 +1,21 @@
 package com.insurance.polismart.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.insurance.polismart.View;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Admin on 29.06.2016.
@@ -21,6 +28,7 @@ import java.util.Set;
                 @NamedQuery(name = User.GET_BY_EMAIL, query = "select distinct u from User u left join fetch u.roles where u.email=:email")
         }
 )
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "email_idx")})
 public class User extends NamedEntity{
@@ -39,6 +47,7 @@ public class User extends NamedEntity{
     @Column(name = "password", nullable = false)
     @NotEmpty
     @Length(min = 6, max = 20)
+    @JsonView(View.REST.class)
     private String password;
 
     @Column(name = "enabled", nullable = false)
@@ -51,6 +60,7 @@ public class User extends NamedEntity{
     @Column(name = "role", nullable = false)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @ElementCollection(fetch = FetchType.LAZY)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Role> roles;
 
     public User() {
@@ -104,8 +114,8 @@ public class User extends NamedEntity{
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRoles(Collection<Role> roles) {
+        this.roles = CollectionUtils.isEmpty(roles) ? Collections.EMPTY_SET : EnumSet.copyOf(roles);
     }
 
     @Override

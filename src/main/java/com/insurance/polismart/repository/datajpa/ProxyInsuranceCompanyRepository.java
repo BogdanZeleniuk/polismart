@@ -30,9 +30,11 @@ public interface ProxyInsuranceCompanyRepository extends JpaRepository<Insurance
     @Override
     InsuranceCompany findOne(Integer id);
 
+    @SuppressWarnings(value = "JpaQlInspection")
     @Query("select company from InsuranceCompany company where company.amount between :min and :max order by company.amount desc ")
-    List<InsuranceCompany> getFilteredByAmount(int min, int max);
+    List<InsuranceCompany> getFilteredByAmount(@Param ("min") int min, @Param ("max") int max);
 
+    @SuppressWarnings(value = "JpaQlInspection")
     @Query("select company from InsuranceCompany company where company.franchise between :min and :max order by company.franchise desc ")
-    List<InsuranceCompany> getFilteredByFranchise(int min, int max);
+    List<InsuranceCompany> getFilteredByFranchise(@Param("min") int min, @Param("max") int max);
 }
