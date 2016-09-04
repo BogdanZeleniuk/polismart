@@ -1,12 +1,13 @@
 package com.insurance.polismart.web.usercontroller;
 
 import com.insurance.polismart.model.User;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 /**
@@ -16,34 +17,39 @@ import java.util.List;
 @RequestMapping("/rest/admin/users")
 public class AdminRestController extends AbstractUserController {
 
-    @RequestMapping(method = RequestMethod.POST )
-    public ResponseEntity<User> createWithLocation(@RequestBody User user) {
-    //    return super.create(user);
-        return null;
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
+    public ResponseEntity<User> createWithLocation(@Valid @RequestBody User user) {
+        User created = super.create(user);
+
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/rest/admin/users" + "/{id}")
+                .buildAndExpand(created.getId()).toUri();
+
+        return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    @Override
-    public void update(User user, int userId) {
-        super.update(user, userId);
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void update(@Valid @RequestBody User user, @PathVariable("id") int id) {
+        super.update(user, id);
     }
 
-    @Override
-    public void delete(int userId) {
-        super.delete(userId);
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable("id") int id) {
+        super.delete(id);
     }
 
-    @Override
-    public User get(int userId) {
-        return super.get(userId);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public User get(@PathVariable("id") int id) {
+        return super.get(id);
     }
 
-    @Override
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getAll() {
         return super.getAll();
     }
 
-    @Override
-    public User getByEmail(String email) {
+    @RequestMapping(value = "/by", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public User getByEmail(@RequestParam("email") String email) {
         return super.getByEmail(email);
     }
 }
