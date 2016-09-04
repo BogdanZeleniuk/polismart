@@ -1,9 +1,7 @@
 package com.insurance.polismart.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -42,25 +40,24 @@ public class InsuranceCompany extends BaseEntity{
 
     @Column(name = "franchise", nullable = false)
     @NotNull
-    @Range(min = 0, max = Integer.MAX_VALUE)
     private int franchise;
 
     @Column(name = "amount", nullable = false)
     @NotNull
-    @Range(min = 0, max = Integer.MAX_VALUE)
     private int amount;
 
     public InsuranceCompany() {
     }
 
-    public InsuranceCompany(@JsonProperty("name") String name,
-                            @JsonProperty("description") String description,
-                            @JsonProperty("franchise") int franchise,
-                            @JsonProperty("amount") int amount) {
+    public InsuranceCompany(String name, String description, int franchise, int amount) {
         this(null,name,description,franchise,amount);
     }
 
-    public InsuranceCompany(Integer id, String name, String description, int franchise, int amount) {
+    public InsuranceCompany(@JsonProperty("id") Integer id,
+                            @JsonProperty("name") String name,
+                            @JsonProperty("description") String description,
+                            @JsonProperty("franchise") int franchise,
+                            @JsonProperty("amount") int amount) {
         super(id);
         this.name = name;
         this.description = description;

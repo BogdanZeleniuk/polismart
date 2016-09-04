@@ -32,8 +32,8 @@
                     <th>${company.description}</th>
                     <th>${company.franchise}</th>
                     <th>${company.amount}</th>
-                    <th><a href="insurance/id=${company.id}">Update</a></th>
-                    <th><a href="insurance/id=${company.id}">Delete</a></th>
+                    <th><a href="rest/insurance/${company.id}">Update</a></th>
+                    <th><a href="rest/insurance/${company.id}">Delete</a></th>
                 </tr>
             </c:forEach>
         </tbody>
