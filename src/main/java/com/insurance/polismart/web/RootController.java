@@ -14,23 +14,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class RootController extends AbstractUserController{
 
-    @Autowired
-    private InsuranceCompanyService insuranceCompanyService;
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String root(){
         return "redirect:insurance";
     }
 
     @RequestMapping(value = "/insurance", method = RequestMethod.GET)
-    public String insuranceCompanyList(Model model){
-        model.addAttribute("insuranceCompanyList", insuranceCompanyService.getAll());
+    public String insuranceCompanyList(){
         return "insuranceCompanyList";
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String userList(Model model){
-        model.addAttribute("userList", getAll());
+    public String userList(){
         return "userList";
     }
 }

@@ -15,8 +15,8 @@ import javax.validation.constraints.NotNull;
                 @NamedQuery(name = InsuranceCompany.GET_All, query = "select company from InsuranceCompany company order by company.amount desc"),
                 @NamedQuery(name = InsuranceCompany.DELETE, query = "delete from InsuranceCompany company where company.id=:id"),
                 @NamedQuery(name = InsuranceCompany.GET, query = "select company from InsuranceCompany company where company.id=:id"),
-                @NamedQuery(name = InsuranceCompany.FILTERED_BY_AMOUNT, query = "select company from InsuranceCompany company where company.amount between :min AND :max order by company.amount desc"),
-                @NamedQuery(name = InsuranceCompany.FILTERED_BY_FRANCHISE, query = "select company from InsuranceCompany company where company.franchise between :min and :max order by company.franchise desc")
+                @NamedQuery(name = InsuranceCompany.FILTERED_BY_DATA, query = "select company from InsuranceCompany company where " +
+                        "company.amount between :minAmount AND :maxAmount AND company.franchise between :minFranchise AND :maxFranchise order by company.amount desc")
         }
 )
 @Entity
@@ -26,16 +26,17 @@ public class InsuranceCompany extends BaseEntity{
     public static final String GET_All = "InsuranceCompany.Get_All";
     public static final String DELETE = "InsuranceCompany.Delete";
     public static final String GET = "InsuranceCompany.Get";
-    public static final String FILTERED_BY_AMOUNT = "InsuranceCompany.Filtered_By_Amount";
-    public static final String FILTERED_BY_FRANCHISE = "InsuranceCompany.Filtered_By_Franchise";
+    public static final String FILTERED_BY_DATA = "InsuranceCompany.Filtered_By_Data";
 
 
     @Column(name = "name", nullable = false)
     @NotEmpty
+    @NotNull
     private String name;
 
     @Column(name = "description", nullable = false)
     @NotEmpty
+    @NotNull
     private String description;
 
     @Column(name = "franchise", nullable = false)

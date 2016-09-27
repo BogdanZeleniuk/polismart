@@ -37,12 +37,7 @@ public class DataJpaInsuranceCompanyRepositoryImpl implements InsuranceCompanyRe
     }
 
     @Override
-    public List<InsuranceCompany> getFilteredByAmount(int min, int max) {
-        return proxyInsuranceCompanyRepository.getFilteredByAmount(min, max);
-    }
-
-    @Override
-    public List<InsuranceCompany> getFilteredByFranchise(int min, int max) {
-        return proxyInsuranceCompanyRepository.getFilteredByFranchise(min, max);
+    public List<InsuranceCompany> getFilteredByData(Integer minAmount, Integer maxAmount, Integer minFranchise, Integer maxFranchise) {
+        return proxyInsuranceCompanyRepository.getFilteredByData(minAmount, maxAmount, minFranchise, maxFranchise);
     }
 }

@@ -1,14 +1,14 @@
-var ajaxUrl = '/rest/insurance/';
+var ajaxUrl = 'ajax/insurance/';
 var datatableApi;
 
 function updateTable() {
     $.ajax({
         type: "POST",
-        url: ajaxUrl + 'filterByAmount',
-        data: $('#filterByAmount').serialize(),
+        url: ajaxUrl + 'filterByData',
+        data: $('#filterByData').serialize(),
         success: updateTableByData
     });
-    return false;
+    return false;    
 }
 
 $(function () {
@@ -21,19 +21,16 @@ $(function () {
         "info": true,
         "columns": [
             {
-                "data": "dateTime",
-                "render": function (date, type, row) {
-                    if (type == 'display') {
-                        return date.replace('T', ' ').substr(0, 16);
-                    }
-                    return date;
-                }
+                "data": "name"
             },
             {
                 "data": "description"
             },
             {
-                "data": "calories"
+                "data": "franchise"
+            },
+            {
+                "data": "amount"
             },
             {
                 "defaultContent": "",
@@ -44,7 +41,6 @@ $(function () {
                 "defaultContent": "",
                 "orderable": false,
                 "render": renderDeleteBtn
-
             }
         ],
         "order": [
@@ -53,54 +49,13 @@ $(function () {
                 "desc"
             ]
         ],
-        "createdRow": function (row, data, dataIndex) {
-            $(row).addClass(data.exceed ? 'exceeded' : 'normal');
-        },
         "initComplete": function () {
-            $('#filter').submit(function () {
-                updateTable();
-                return false;
-            });
-
-            var startDate = $('#startDate');
-            var endDate = $('#endDate');
-
-            startDate.datetimepicker({
-                timepicker: false,
-                format: 'Y-m-d',
-                lang: 'ru',
-                formatDate: 'Y-m-d',
-                onShow: function (ct) {
-                    this.setOptions({
-                        maxDate: endDate.val() ? endDate.val() : false
-                    })
-                }
-            });
-            endDate.datetimepicker({
-                timepicker: false,
-                format: 'Y-m-d',
-                lang: 'ru',
-                formatDate: 'Y-m-d',
-                onShow: function (ct) {
-                    this.setOptions({
-                        minDate: startDate.val() ? startDate.val() : false
-                    })
-                }
-            });
-
-            $('.time-picker').datetimepicker({
-                datepicker: false,
-                format: 'H:i',
-                lang: 'ru'
-            });
-
-            $('#dateTime').datetimepicker({
-                format: 'Y-m-d H:i',
-                lang: 'ru'
-            });
-
-            makeEditable();
-        }
+        $('#filterByData').submit(function () {
+            updateTable();
+            return false;
+        });
+        makeEditable();
+    }
     });
 });
 

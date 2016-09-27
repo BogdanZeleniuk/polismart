@@ -77,12 +77,7 @@ public class InsuranceCompanyRepositoryImpl implements InsuranceCompanyRepositor
     }
 
     @Override
-    public List<InsuranceCompany> getFilteredByAmount(int min, int max) {
-        return jdbcTemplate.query("SELECT * FROM insurance_companies WHERE amount BETWEEN ? AND ? ORDER BY amount DESC",MAPPER,min,max);
-    }
-
-    @Override
-    public List<InsuranceCompany> getFilteredByFranchise(int min, int max) {
-        return jdbcTemplate.query("SELECT * FROM insurance_companies WHERE franchise BETWEEN ? AND ? ORDER BY franchise DESC ",MAPPER,min,max);
+    public List<InsuranceCompany> getFilteredByData(Integer minAmount, Integer maxAmount, Integer minFranchise, Integer maxFranchise) {
+        return jdbcTemplate.query("SELECT * FROM insurance_companies WHERE amount BETWEEN ? AND ? AND franchise BETWEEN ? AND ? ORDER BY amount DESC",MAPPER,minAmount,maxAmount, minFranchise, maxFranchise);
     }
 }

@@ -47,16 +47,11 @@ public class InsuranceCompanyRestController extends AbstractInsuranceCompanyCont
         return super.getAll();
     }
 
-    @RequestMapping(value = "/filterByAmount", method = RequestMethod.GET)
-    public List<InsuranceCompany> getFilteredByAmount(@RequestParam(value = "min", required = false) int min,
-                                                      @RequestParam(value = "max", required = false) int max){
-        return super.getFilteredByAmount(min, max);
+    @RequestMapping(value = "/filterByData", method = RequestMethod.GET)
+    public List<InsuranceCompany> getFilteredByData(@RequestParam(value = "minAmount", required = false) Integer minAmount,
+                                                    @RequestParam(value = "maxAmount", required = false) Integer maxAmount,
+                                                    @RequestParam(value = "minFranchise", required = false) Integer minFranchise,
+                                                    @RequestParam(value = "maxFranchise", required = false) Integer maxFranchise){
+        return super.getFilteredByData(minAmount, maxAmount, minFranchise, maxFranchise);
     }
-
-    @RequestMapping(value = "/filterByFranchise", method = RequestMethod.GET)
-    public List<InsuranceCompany> getFilteredByFranchise(@RequestParam(value = "min", required = false) int min,
-                                                         @RequestParam(value = "max", required = false) int max){
-        return super.getFilteredByFranchise(min, max);
-    }
-
 }

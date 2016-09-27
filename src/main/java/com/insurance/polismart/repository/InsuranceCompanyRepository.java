@@ -17,8 +17,5 @@ public interface InsuranceCompanyRepository {
 
     List<InsuranceCompany> getAll();
 
-    List<InsuranceCompany> getFilteredByAmount(int min, int max);
-
-    List<InsuranceCompany> getFilteredByFranchise(int min, int max);
-
+    List<InsuranceCompany> getFilteredByData(Integer minAmount, Integer maxAmount, Integer minFranchise, Integer maxFranchise);
 }

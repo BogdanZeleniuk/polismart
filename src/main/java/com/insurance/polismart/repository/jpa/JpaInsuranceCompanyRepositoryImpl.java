@@ -51,18 +51,12 @@ public class JpaInsuranceCompanyRepositoryImpl implements InsuranceCompanyReposi
     }
 
     @Override
-    public List<InsuranceCompany> getFilteredByAmount(int min, int max) {
-        return entityManager.createNamedQuery(InsuranceCompany.FILTERED_BY_AMOUNT, InsuranceCompany.class)
-                .setParameter("min", min)
-                .setParameter("max", max)
-                .getResultList();
-    }
-
-    @Override
-    public List<InsuranceCompany> getFilteredByFranchise(int min, int max) {
-        return entityManager.createNamedQuery(InsuranceCompany.FILTERED_BY_FRANCHISE, InsuranceCompany.class)
-                .setParameter("min", min)
-                .setParameter("max", max)
+    public List<InsuranceCompany> getFilteredByData(Integer minAmount, Integer maxAmount, Integer minFranchise, Integer maxFranchise) {
+        return entityManager.createNamedQuery(InsuranceCompany.FILTERED_BY_DATA, InsuranceCompany.class)
+                .setParameter("minAmount", minAmount)
+                .setParameter("maxAmount", maxAmount)
+                .setParameter("minFranchise", minFranchise)
+                .setParameter("maxFranchise", maxFranchise)
                 .getResultList();
     }
 }

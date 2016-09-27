@@ -42,12 +42,7 @@ public class InsuranceCompanyServiceImpl implements InsuranceCompanyService {
     }
 
     @Override
-    public List<InsuranceCompany> getFilteredByAmount(int min, int max) {
-        return repository.getFilteredByAmount(min, max);
-    }
-
-    @Override
-    public List<InsuranceCompany> getFilteredByFranchise(int min, int max) {
-        return repository.getFilteredByFranchise(min, max);
+    public List<InsuranceCompany> getFilteredByData(Integer minAmount, Integer maxAmount, Integer minFranchise, Integer maxFranchise) {
+        return repository.getFilteredByData(minAmount, maxAmount, minFranchise, maxFranchise);
     }
 }

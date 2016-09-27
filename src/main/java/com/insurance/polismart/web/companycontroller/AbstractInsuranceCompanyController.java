@@ -3,6 +3,7 @@ package com.insurance.polismart.web.companycontroller;
 import com.insurance.polismart.model.InsuranceCompany;
 import com.insurance.polismart.service.InsuranceCompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringArrayPropertyEditor;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -11,6 +12,11 @@ import java.util.List;
  * Created by Admin on 06.07.2016.
  */
 public abstract class AbstractInsuranceCompanyController {
+
+    private static final int MIN_AMOUNT = 0;
+    private static final int MAX_AMOUNT = 10000;
+    private static final int MIN_FRANCHISE = 0;
+    private static final int MAX_FRANCHISE = 10000;
 
     @Autowired
     private InsuranceCompanyService companyService;
@@ -37,11 +43,8 @@ public abstract class AbstractInsuranceCompanyController {
         return companyService.getAll();
     }
 
-    public List<InsuranceCompany> getFilteredByAmount(int min, int max){
-        return companyService.getFilteredByAmount(min, max);
-    }
-
-    public List<InsuranceCompany> getFilteredByFranchise(int min, int max){
-        return companyService.getFilteredByFranchise(min, max);
+    public List<InsuranceCompany> getFilteredByData(Integer minAmount, Integer maxAmount, Integer minFranchise, Integer maxFranchise){
+        return companyService.getFilteredByData(minAmount != null ? minAmount : MIN_AMOUNT,
+                maxAmount != null ? maxAmount : MAX_AMOUNT, minFranchise != null ? minFranchise : MIN_FRANCHISE, maxFranchise != null ? maxFranchise : MAX_FRANCHISE);
     }
 }
