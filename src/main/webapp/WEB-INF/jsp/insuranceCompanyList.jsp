@@ -5,11 +5,11 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
-<jsp:include page="fragments/headTag.jsp"/>
+<jsp:include page="headTag.jsp"/>
 <link rel="stylesheet" href="webjars/datatables/1.10.12/css/jquery.dataTables.min.css">
 
 <body>
-<jsp:include page="fragments/bodyHeader.jsp"/>
+<jsp:include page="bodyHeader.jsp"/>
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
@@ -68,7 +68,7 @@
         </div>
     </div>
 </div>
-<jsp:include page="fragments/footer.jsp"/>
+<jsp:include page="footer.jsp"/>
 <div class="modal fade" id="editRow">
     <div class="modal-dialog">
         <div class="modal-content">

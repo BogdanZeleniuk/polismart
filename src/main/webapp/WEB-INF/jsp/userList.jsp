@@ -3,17 +3,20 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
-<jsp:include page="fragments/headTag.jsp"/>
+<jsp:include page="headTag.jsp"/>
 <link rel="stylesheet" href="webjars/datatables/1.10.12/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="webjars/datetimepicker/2.4.7/jquery.datetimepicker.css">
 
 <body>
-    <jsp:include page="fragments/bodyHeader.jsp"/>
-        <center>
-            <section>
-                <h3><fmt:message key="users.title"/></h3>
-                <hr>
-                <table border="1" cellpadding="8" cellspacing="0">
+<jsp:include page="bodyHeader.jsp"/>
+<div class="jumbotron">
+    <div class="container">
+        <div class="shadow">
+            <h3><fmt:message key="users.title"/></h3>
+
+            <div class="view-box">
+                <a class="btn btn-sm btn-info" onclick="add()"><fmt:message key="users.add"/></a>
+
+                <table class="table table-striped display" id="datatable">
                     <thead>
                     <tr>
                         <th>Name</th>
@@ -21,29 +24,65 @@
                         <th>Roles</th>
                         <th>Active</th>
                         <th>Registered</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <c:forEach items="${userList}" var="user">
-                        <jsp:useBean id="user" scope="page" type="com.insurance.polismart.model.User"/>
-                        <tr>
-                            <th>${user.name}</th>
-                            <th>${user.email}</th>
-                            <th>${user.roles}</th>
-                            <th>
-                                <input type="checkbox"
-                                       <c:if test="${user.enabled}">checked</c:if> id="${user.id}"/>
-                            </th>
-                            <th><fmt:formatDate value="${user.registered}" pattern="dd-MMMM-yyyy"/></th>
-                            <th><a href="rest/admin/users/${user.id}"><fmt:message key="users.edit"/></a></th>
-                            <th><a href="rest/admin/users/${user.id}"><fmt:message key="users.delete"/></a></th>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table><br>
-                <a href="/rest/admin/users/add"><fmt:message key="users.add"/></a>
-            </section>
-            <jsp:include page="fragments/footer.jsp"/>
-        </center>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<jsp:include page="footer.jsp"/>
+
+<div class="modal fade" id="editRow">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title"><fmt:message key="users.edit"/></h2>
+            </div>
+            <div class="modal-body">
+                <form:form class="form-horizontal" method="post" id="detailsForm">
+                    <input type="text" hidden="hidden" id="id" name="id">
+
+                    <div class="form-group">
+                        <label for="name" class="control-label col-xs-3">Name</label>
+
+                        <div class="col-xs-9">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="control-label col-xs-3">Email</label>
+
+                        <div class="col-xs-9">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="email">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="control-label col-xs-3">Password</label>
+
+                        <div class="col-xs-9">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-offset-3 col-xs-9">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </form:form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
+<script type="text/javascript" src="webjars/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="webjars/noty/2.3.8/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+<script type="text/javascript" src="resources_webapp/js/utilDT.js"></script>
+<script type="text/javascript" src="resources_webapp/js/userDT.js"></script>
 </html>

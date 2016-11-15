@@ -31,6 +31,18 @@ function deleteRow(id) {
     });
 }
 
+function enable(chkbox, id) {
+    var enabled = chkbox.is(":checked");
+    chkbox.closest('tr').css("text-decoration", enabled ? "none" : "line-through");
+    $.ajax({
+        url: ajaxUrl + id,
+        type: 'POST',
+        data: 'enabled=' + enabled,
+        success: function () {
+            successNoty(enabled ? 'Enabled' : 'Disabled');
+        }
+    });
+}
 
 function updateTableByData(data) {
     datatableApi.clear().rows.add(data).draw();
