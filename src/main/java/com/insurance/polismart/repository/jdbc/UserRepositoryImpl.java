@@ -15,9 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.sql.DataSource;
 import java.util.List;
 
-/**
- * Created by Admin on 29.06.2016.
- */
 @Repository
 @Transactional(readOnly = true)
 public class UserRepositoryImpl implements UserRepository {

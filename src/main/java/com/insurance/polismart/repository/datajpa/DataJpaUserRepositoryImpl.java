@@ -7,9 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Created by Admin on 20.07.2016.
- */
 @Repository
 public class DataJpaUserRepositoryImpl implements UserRepository {
 

@@ -1,5 +1,6 @@
 package com.insurance.polismart.web.companycontroller;
 
+import com.insurance.polismart.dto.InsuranceCompanyDTO;
 import com.insurance.polismart.model.InsuranceCompany;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +11,6 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
-/**
- * Created by Admin on 31.07.2016.
- */
 @RestController
 @RequestMapping(value = "/rest/insurance", produces = MediaType.APPLICATION_JSON_VALUE)
 public class InsuranceCompanyRestController extends AbstractInsuranceCompanyController{
@@ -43,15 +41,17 @@ public class InsuranceCompanyRestController extends AbstractInsuranceCompanyCont
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<InsuranceCompany> getAll(){
+    public List<InsuranceCompanyDTO> getAll(){
         return super.getAll();
     }
 
     @RequestMapping(value = "/filterByData", method = RequestMethod.GET)
-    public List<InsuranceCompany> getFilteredByData(@RequestParam(value = "minAmount", required = false) Integer minAmount,
+    public List<InsuranceCompanyDTO> getFilteredByData(@RequestParam(value = "minAmount", required = false) Integer minAmount,
                                                     @RequestParam(value = "maxAmount", required = false) Integer maxAmount,
                                                     @RequestParam(value = "minFranchise", required = false) Integer minFranchise,
-                                                    @RequestParam(value = "maxFranchise", required = false) Integer maxFranchise){
-        return super.getFilteredByData(minAmount, maxAmount, minFranchise, maxFranchise);
+                                                    @RequestParam(value = "maxFranchise", required = false) Integer maxFranchise,
+                                                    @RequestParam(value = "population", required = false) String population,
+                                                    @RequestParam(value = "engine_power", required = false) String engine_power){
+        return super.getFilteredByData(minAmount, maxAmount, minFranchise, maxFranchise, population, engine_power);
     }
 }

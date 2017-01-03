@@ -9,9 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by Admin on 31.07.2016.
- */
 @Transactional(readOnly = true)
 public interface ProxyInsuranceCompanyRepository extends JpaRepository<InsuranceCompany, Integer> {
 
@@ -20,7 +17,7 @@ public interface ProxyInsuranceCompanyRepository extends JpaRepository<Insurance
 
     @Transactional
     @Modifying
-    @Query("delete from InsuranceCompany company where company.id=:id")
+    @Query("DELETE FROM InsuranceCompany company WHERE company.id=:id")
     int delete(@Param("id") int id);
 
     @Override
@@ -31,6 +28,10 @@ public interface ProxyInsuranceCompanyRepository extends JpaRepository<Insurance
     InsuranceCompany findOne(Integer id);
 
     @SuppressWarnings(value = "JpaQlInspection")
-    @Query("select company from InsuranceCompany company where company.amount between :minAmount AND :maxAmount AND company.franchise between :minFranchise AND :maxFranchise order by company.amount desc")
-    List<InsuranceCompany> getFilteredByData(@Param ("minAmount") Integer minAmount, @Param ("maxAmount") Integer maxAmount, @Param ("minFranchise") Integer minFranchise, @Param("maxFranchise") Integer maxFranchise);
+    @Query("SELECT company FROM InsuranceCompany company WHERE " +
+            "company.amount BETWEEN :minAmount AND :maxAmount AND company.franchise BETWEEN :minFranchise AND :maxFranchise " +
+            "AND company.population=:population AND company.engine_power=:engine_power ORDER BY company.amount DESC")
+    List<InsuranceCompany> getFilteredByData(@Param ("minAmount") Integer minAmount, @Param ("maxAmount") Integer maxAmount,
+                                             @Param ("minFranchise") Integer minFranchise, @Param("maxFranchise") Integer maxFranchise,
+                                             @Param ("population") String population, @Param("engine_power") String engine_power);
 }

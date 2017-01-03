@@ -4,9 +4,6 @@ import com.insurance.polismart.model.User;
 
 import java.util.List;
 
-/**
- * Created by Admin on 29.06.2016.
- */
 public interface UserRepository {
 
     User save(User user);

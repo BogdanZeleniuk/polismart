@@ -1,20 +1,20 @@
 package com.insurance.polismart.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.insurance.polismart.View;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
-/**
- * Created by Admin on 29.06.2016.
- */
 @MappedSuperclass
 public class NamedEntity extends BaseEntity{
 
-    @Column( name = "name", nullable = false)
-    @NotEmpty
+    @Column( name = "name", nullable = false, unique = true)
+    @NotEmpty(message = "Name could not be empty")
+    @JsonView(View.REST.class)
+    @Length(min = 3, max = 50, message = "More than 3 symbols")
     protected String name;
 
     public NamedEntity() {

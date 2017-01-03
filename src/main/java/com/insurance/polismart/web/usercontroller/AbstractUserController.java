@@ -1,14 +1,12 @@
 package com.insurance.polismart.web.usercontroller;
 
+import com.insurance.polismart.dto.UserDTO;
 import com.insurance.polismart.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import com.insurance.polismart.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-/**
- * Created by Admin on 06.07.2016.
- */
 public abstract class AbstractUserController {
 
     @Autowired
@@ -30,6 +28,10 @@ public abstract class AbstractUserController {
 
     public User get(int userId){
         return service.get(userId);
+    }
+
+    public void update(UserDTO userDTO) {
+        service.update(userDTO);
     }
 
     public List<User> getAll(){

@@ -7,9 +7,6 @@ import com.insurance.polismart.repository.InsuranceCompanyRepository;
 
 import java.util.List;
 
-/**
- * Created by Admin on 29.06.2016.
- */
 @Service
 public class InsuranceCompanyServiceImpl implements InsuranceCompanyService {
 
@@ -42,7 +39,8 @@ public class InsuranceCompanyServiceImpl implements InsuranceCompanyService {
     }
 
     @Override
-    public List<InsuranceCompany> getFilteredByData(Integer minAmount, Integer maxAmount, Integer minFranchise, Integer maxFranchise) {
-        return repository.getFilteredByData(minAmount, maxAmount, minFranchise, maxFranchise);
+    public List<InsuranceCompany> getFilteredByData(Integer minAmount, Integer maxAmount, Integer minFranchise,
+                                                    Integer maxFranchise, String population, String engine_power) {
+        return repository.getFilteredByData(minAmount, maxAmount, minFranchise, maxFranchise, population, engine_power);
     }
 }

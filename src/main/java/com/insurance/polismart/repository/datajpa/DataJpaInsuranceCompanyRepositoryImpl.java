@@ -7,9 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Created by Admin on 31.07.2016.
- */
 @Repository
 public class DataJpaInsuranceCompanyRepositoryImpl implements InsuranceCompanyRepository {
 
@@ -37,7 +34,9 @@ public class DataJpaInsuranceCompanyRepositoryImpl implements InsuranceCompanyRe
     }
 
     @Override
-    public List<InsuranceCompany> getFilteredByData(Integer minAmount, Integer maxAmount, Integer minFranchise, Integer maxFranchise) {
-        return proxyInsuranceCompanyRepository.getFilteredByData(minAmount, maxAmount, minFranchise, maxFranchise);
+    public List<InsuranceCompany> getFilteredByData(Integer minAmount, Integer maxAmount, Integer minFranchise,
+                                                    Integer maxFranchise, String population, String engine_power) {
+        return proxyInsuranceCompanyRepository.getFilteredByData(minAmount, maxAmount, minFranchise, maxFranchise,
+                                                                population, engine_power);
     }
 }

@@ -4,9 +4,6 @@ import com.insurance.polismart.model.InsuranceCompany;
 
 import java.util.List;
 
-/**
- * Created by Admin on 29.06.2016.
- */
 public interface InsuranceCompanyRepository {
 
     InsuranceCompany save(InsuranceCompany company);
@@ -17,5 +14,6 @@ public interface InsuranceCompanyRepository {
 
     List<InsuranceCompany> getAll();
 
-    List<InsuranceCompany> getFilteredByData(Integer minAmount, Integer maxAmount, Integer minFranchise, Integer maxFranchise);
+    List<InsuranceCompany> getFilteredByData(Integer minAmount, Integer maxAmount, Integer minFranchise,
+                                             Integer maxFranchise, String population, String engine_power);
 }

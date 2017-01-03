@@ -1,32 +1,31 @@
 package com.insurance.polismart.service;
 
+import com.insurance.polismart.AuthorizedUser;
+import com.insurance.polismart.dto.UserDTO;
+import com.insurance.polismart.dto.UserUtil;
+import com.insurance.polismart.exception.NotFoundException;
 import com.insurance.polismart.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Service;
 import com.insurance.polismart.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Created by Admin on 29.06.2016.
- */
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
 
     @Override
-    @CacheEvict(value = "users", allEntries = true)
     public User save(User user) {
-        return userRepository.save(user);
+        return userRepository.save(UserUtil.prepareToSave(user));
     }
 
     @Override
-    @CacheEvict(value = "users", allEntries = true)
     public void delete(int user_id) {
         userRepository.delete(user_id);
     }
@@ -37,15 +36,20 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    @Cacheable("users")
     public List<User> getAll() {
         return userRepository.getAll();
     }
 
     @Override
-    @CacheEvict(value = "users", allEntries = true)
     public void update(User user) {
-        userRepository.save(user);
+        userRepository.save(UserUtil.prepareToSave(user));
+    }
+
+    @Override
+    public void update(UserDTO user) throws NotFoundException {
+        User newUser = get(user.getId());
+        UserUtil.updateUserFromDTO(newUser, user);
+        userRepository.save(UserUtil.prepareToSave(newUser));
     }
 
     @Override
@@ -53,9 +57,13 @@ public class UserServiceImpl implements UserService{
         return Objects.requireNonNull(userRepository.getByEmail(email));
     }
 
-    @CacheEvict(value = "users", allEntries = true)
     @Override
-    public void evictCache() {
+    public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
+        User u = userRepository.getByEmail(email);
+        if (u == null) {
+            throw new UsernameNotFoundException("User " + email + " is not found");
+        }
+        return new AuthorizedUser(u);
     }
 
 }

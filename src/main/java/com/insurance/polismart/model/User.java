@@ -2,54 +2,43 @@ package com.insurance.polismart.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.insurance.polismart.View;
-import org.hibernate.annotations.*;
-import org.hibernate.annotations.Cache;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.util.*;
 
-/**
- * Created by Admin on 29.06.2016.
- */
 @NamedQueries(
         {
-                @NamedQuery(name = User.GET_ALL, query = "select distinct u from User u left join fetch u.roles order by u.name"),
-                @NamedQuery(name = User.DELETE, query = "delete from User u where u.id=:id"),
-                @NamedQuery(name = User.GET, query = "select distinct u from User u left join fetch u.roles where u.id=:id"),
-                @NamedQuery(name = User.GET_BY_EMAIL, query = "select distinct u from User u left join fetch u.roles where u.email=:email")
+                @NamedQuery(name = User.GET_ALL, query = "SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.name"),
+                @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
+                @NamedQuery(name = User.GET, query = "SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.roles WHERE u.id=:id"),
+                @NamedQuery(name = User.GET_BY_EMAIL, query = "SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=:email")
         }
 )
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "email_idx")})
-public class User extends NamedEntity implements Serializable{
+public class User extends NamedEntity{
 
-    private static final long serialVersionUID = 1L;
-
-    public static final String GET_ALL = "User.Get_ALL_SORTED";
+    public static final String GET_ALL = "User.GET_ALL_SORTED";
     public static final String DELETE = "User.DELETE";
     public static final String GET = "User.GET";
-    public static final String GET_BY_EMAIL = "User.Get_By_Email";
+    public static final String GET_BY_EMAIL = "User.GET_BY_EMAIL";
 
     @Email
     @Column(name = "email", nullable = false, unique = true)
-    @Size(min = 3, max = 30)
-    @NotEmpty
+    @Size(min = 3, max = 30, message = "Email should have more than 3 letters")
+    @NotEmpty(message = "Email could not be empty")
+    @JsonView(View.REST.class)
     private String email;
 
     @Column(name = "password", nullable = false)
-    @NotEmpty
-    @Length(min = 6, max = 20)
+    @NotEmpty(message = "Password could not be empty")
+    @Length(min = 6, max = 20, message = "Password should have more than 6 symbols")
     @JsonView(View.REST.class)
     private String password;
 
@@ -57,13 +46,13 @@ public class User extends NamedEntity implements Serializable{
     private boolean enabled = true;
 
     @Column(name = "registered")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date registered = new Date();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @ElementCollection(fetch = FetchType.LAZY)
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Role> roles;
 
     public User() {
@@ -78,7 +67,7 @@ public class User extends NamedEntity implements Serializable{
         this.email = email;
         this.password = password;
         this.enabled = enabled;
-        this.roles = roles;
+        setRoles(roles);
     }
 
     public String getEmail() {
@@ -124,7 +113,8 @@ public class User extends NamedEntity implements Serializable{
     @Override
     public String toString() {
         return "User{" +
-                "email='" + email + '\'' +
+                "id='" + id + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +
                 ", roles=" + roles +

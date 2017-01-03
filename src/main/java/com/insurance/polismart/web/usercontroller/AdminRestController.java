@@ -10,9 +10,6 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
-/**
- * Created by Admin on 06.07.2016.
- */
 @RestController
 @RequestMapping("/rest/admin/users")
 public class AdminRestController extends AbstractUserController {

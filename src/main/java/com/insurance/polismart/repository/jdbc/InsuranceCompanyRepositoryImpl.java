@@ -15,9 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.sql.DataSource;
 import java.util.List;
 
-/**
- * Created by Admin on 29.06.2016.
- */
 @Repository
 @Transactional(readOnly = true)
 public class InsuranceCompanyRepositoryImpl implements InsuranceCompanyRepository {
@@ -44,17 +41,21 @@ public class InsuranceCompanyRepositoryImpl implements InsuranceCompanyRepositor
     public InsuranceCompany save(InsuranceCompany company) {
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource()
                 .addValue("id",company.getId())
+                .addValue("content", company.getContent())
                 .addValue("name",company.getName())
                 .addValue("description",company.getDescription())
                 .addValue("franchise",company.getFranchise())
+                .addValue("population", company.getPopulation())
+                .addValue("engine_power", company.getEngine_power())
                 .addValue("amount",company.getAmount());
         if (company.isNew()){
             Number newId = jdbcInsert.executeAndReturnKey(mapSqlParameterSource);
             company.setId(newId.intValue());
         }
         else {
-            namedParameterJdbcTemplate.update("UPDATE insurance_companies SET name=:name, " +
-                    "description=:description, franchise=:franchise, amount=:amount WHERE id=:id",mapSqlParameterSource);
+            namedParameterJdbcTemplate.update("UPDATE insurance_companies SET content=:content, name=:name, " +
+                    "description=:description, franchise=:franchise, population=:population, " +
+                    "engine_power=:engine_power, amount=:amount WHERE id=:id",mapSqlParameterSource);
         }
         return company;
     }
@@ -77,7 +78,10 @@ public class InsuranceCompanyRepositoryImpl implements InsuranceCompanyRepositor
     }
 
     @Override
-    public List<InsuranceCompany> getFilteredByData(Integer minAmount, Integer maxAmount, Integer minFranchise, Integer maxFranchise) {
-        return jdbcTemplate.query("SELECT * FROM insurance_companies WHERE amount BETWEEN ? AND ? AND franchise BETWEEN ? AND ? ORDER BY amount DESC",MAPPER,minAmount,maxAmount, minFranchise, maxFranchise);
+    public List<InsuranceCompany> getFilteredByData(Integer minAmount, Integer maxAmount, Integer minFranchise,
+                                                    Integer maxFranchise, String population, String engine_power) {
+        return jdbcTemplate.query("SELECT * FROM insurance_companies WHERE amount BETWEEN ? AND ? AND franchise BETWEEN ? AND ? " +
+                "AND population=? AND engine_power=? ORDER BY amount DESC",
+                MAPPER,minAmount,maxAmount, minFranchise, maxFranchise, population, engine_power);
     }
 }

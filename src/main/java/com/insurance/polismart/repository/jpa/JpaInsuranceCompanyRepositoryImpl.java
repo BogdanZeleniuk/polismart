@@ -2,6 +2,7 @@ package com.insurance.polismart.repository.jpa;
 
 import com.insurance.polismart.model.InsuranceCompany;
 import com.insurance.polismart.repository.InsuranceCompanyRepository;
+import org.springframework.context.annotation.Primary;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,10 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-/**
- * Created by Admin on 20.07.2016.
- */
 @Repository
+@Primary
 @Transactional(readOnly = true)
 public class JpaInsuranceCompanyRepositoryImpl implements InsuranceCompanyRepository {
 
@@ -51,12 +50,15 @@ public class JpaInsuranceCompanyRepositoryImpl implements InsuranceCompanyReposi
     }
 
     @Override
-    public List<InsuranceCompany> getFilteredByData(Integer minAmount, Integer maxAmount, Integer minFranchise, Integer maxFranchise) {
+    public List<InsuranceCompany> getFilteredByData(Integer minAmount, Integer maxAmount, Integer minFranchise,
+                                                    Integer maxFranchise, String population, String engine_power) {
         return entityManager.createNamedQuery(InsuranceCompany.FILTERED_BY_DATA, InsuranceCompany.class)
                 .setParameter("minAmount", minAmount)
                 .setParameter("maxAmount", maxAmount)
                 .setParameter("minFranchise", minFranchise)
                 .setParameter("maxFranchise", maxFranchise)
+                .setParameter("population", population)
+                .setParameter("engine_power", engine_power)
                 .getResultList();
     }
 }

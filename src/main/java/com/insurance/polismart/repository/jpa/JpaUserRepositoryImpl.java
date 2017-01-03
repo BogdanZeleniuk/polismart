@@ -2,18 +2,19 @@ package com.insurance.polismart.repository.jpa;
 
 import com.insurance.polismart.model.User;
 import com.insurance.polismart.repository.UserRepository;
+import org.springframework.context.annotation.Primary;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-/**
- * Created by Admin on 20.07.2016.
- */
 @Repository
+@Primary
 @Transactional(readOnly = true)
 public class JpaUserRepositoryImpl implements UserRepository {
 
@@ -52,6 +53,13 @@ public class JpaUserRepositoryImpl implements UserRepository {
 
     @Override
     public User getByEmail(String email) {
-        return entityManager.createNamedQuery(User.GET_BY_EMAIL, User.class).setParameter("email", email).getSingleResult();
+        User result = null;
+        try {
+            result = entityManager.createNamedQuery(User.GET_BY_EMAIL, User.class).setParameter("email", email).getSingleResult();
+        }
+        catch (NoResultException | EmptyResultDataAccessException ignored){
+
+        }
+        return result;
     }
 }
