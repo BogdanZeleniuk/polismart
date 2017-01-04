@@ -4,6 +4,7 @@ import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
@@ -22,11 +23,15 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+import static com.insurance.polismart.Profiles.ACTIVE_DB;
+import static com.insurance.polismart.Profiles.ACTIVE_REPOSITORY;
+
 @Configuration
 @EnableTransactionManagement
 public class JpaConfiguration {
 
     @Bean
+    @Profile({ACTIVE_DB, ACTIVE_REPOSITORY})
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
@@ -39,14 +44,17 @@ public class JpaConfiguration {
         return em;
     }
 
+
     private Properties additionalProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "");
+        properties.setProperty("hibernate.enable_lazy_load_no_trans","true");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL81Dialect");
         return properties;
     }
 
     @Bean
+    @Profile({ACTIVE_DB, ACTIVE_REPOSITORY})
     public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(emf);
@@ -55,11 +63,13 @@ public class JpaConfiguration {
     }
 
     @Bean
+    @Profile({ACTIVE_DB, ACTIVE_REPOSITORY})
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
     @Bean
+    @Profile({ACTIVE_DB, ACTIVE_REPOSITORY})
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
@@ -70,6 +80,7 @@ public class JpaConfiguration {
     }
 
     @Bean(name = "messageSource")
+    @Profile({ACTIVE_DB, ACTIVE_REPOSITORY})
     public ReloadableResourceBundleMessageSource messageSource(){
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:messages");
@@ -78,6 +89,7 @@ public class JpaConfiguration {
     }
 
     @Bean
+    @Profile({ACTIVE_DB, ACTIVE_REPOSITORY})
     public DataSourceInitializer dataSourceInitializer(DataSource dataSource){
         DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
         dataSourceInitializer.setDataSource(dataSource);
@@ -90,6 +102,7 @@ public class JpaConfiguration {
     }
 
     @Bean
+    @Profile({ACTIVE_DB, ACTIVE_REPOSITORY})
     public FilterRegistrationBean filterRegistrationBean(){
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
@@ -100,6 +113,7 @@ public class JpaConfiguration {
     }
 
     @Bean
+    @Profile({ACTIVE_DB, ACTIVE_REPOSITORY})
     public static PropertyPlaceholderConfigurer placeHolderConfigurer(){
         final PropertyPlaceholderConfigurer props = new PropertyPlaceholderConfigurer();
         props.setSystemPropertiesMode(PropertyPlaceholderConfigurer.SYSTEM_PROPERTIES_MODE_OVERRIDE );

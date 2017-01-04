@@ -3,11 +3,15 @@ package com.insurance.polismart.repository.datajpa;
 import com.insurance.polismart.model.User;
 import com.insurance.polismart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static com.insurance.polismart.Profiles.DATAJPA;
+
 @Repository
+@Profile(DATAJPA)
 public class DataJpaUserRepositoryImpl implements UserRepository {
 
     @Autowired

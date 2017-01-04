@@ -1,5 +1,6 @@
 package com.insurance.polismart.service;
 
+import com.insurance.polismart.exception.ExceptionUtil;
 import com.insurance.polismart.model.InsuranceCompany;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,17 +21,17 @@ public class InsuranceCompanyServiceImpl implements InsuranceCompanyService {
 
     @Override
     public void delete(int id) {
-        repository.delete(id);
+        ExceptionUtil.checkNotFound(repository.delete(id));
     }
 
     @Override
     public void update(InsuranceCompany company) {
-        repository.save(company);
+        ExceptionUtil.checkNotFound(repository.save(company));
     }
 
     @Override
     public InsuranceCompany get(int id) {
-        return repository.get(id);
+        return ExceptionUtil.checkNotFound(repository.get(id));
     }
 
     @Override

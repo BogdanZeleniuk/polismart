@@ -2,6 +2,7 @@ package com.insurance.polismart.repository.jdbc;
 
 import com.insurance.polismart.model.InsuranceCompany;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,8 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.sql.DataSource;
 import java.util.List;
 
+import static com.insurance.polismart.Profiles.ACTIVE_REPOSITORY;
+import static com.insurance.polismart.Profiles.JDBC;
+
 @Repository
 @Transactional(readOnly = true)
+@Profile(JDBC)
 public class InsuranceCompanyRepositoryImpl implements InsuranceCompanyRepository {
 
     private static final BeanPropertyRowMapper<InsuranceCompany> MAPPER = BeanPropertyRowMapper.newInstance(InsuranceCompany.class);

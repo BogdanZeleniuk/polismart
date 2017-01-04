@@ -3,6 +3,7 @@ package com.insurance.polismart.service;
 import com.insurance.polismart.AuthorizedUser;
 import com.insurance.polismart.dto.UserDTO;
 import com.insurance.polismart.dto.UserUtil;
+import com.insurance.polismart.exception.ExceptionUtil;
 import com.insurance.polismart.exception.NotFoundException;
 import com.insurance.polismart.model.User;
 import com.insurance.polismart.repository.UserRepository;
@@ -27,12 +28,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void delete(int user_id) {
-        userRepository.delete(user_id);
+        ExceptionUtil.checkNotFound(userRepository.delete(user_id));
     }
 
     @Override
     public User get(int user_id) {
-        return userRepository.get(user_id);
+        return ExceptionUtil.checkNotFound(userRepository.get(user_id));
     }
 
     @Override
@@ -42,19 +43,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void update(User user) {
-        userRepository.save(UserUtil.prepareToSave(user));
+        ExceptionUtil.checkNotFound(userRepository.save(UserUtil.prepareToSave(user)));
     }
 
     @Override
     public void update(UserDTO user) throws NotFoundException {
         User newUser = get(user.getId());
         UserUtil.updateUserFromDTO(newUser, user);
-        userRepository.save(UserUtil.prepareToSave(newUser));
+        ExceptionUtil.checkNotFound(userRepository.save(UserUtil.prepareToSave(newUser)));
     }
 
     @Override
     public User getByEmail(String email) {
-        return Objects.requireNonNull(userRepository.getByEmail(email));
+        return ExceptionUtil.checkNotFound(Objects.requireNonNull(userRepository.getByEmail(email)));
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.insurance.polismart.repository.jpa;
 
 import com.insurance.polismart.model.User;
 import com.insurance.polismart.repository.UserRepository;
-import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
@@ -13,8 +13,10 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static com.insurance.polismart.Profiles.JPA;
+
 @Repository
-@Primary
+@Profile(JPA)
 @Transactional(readOnly = true)
 public class JpaUserRepositoryImpl implements UserRepository {
 

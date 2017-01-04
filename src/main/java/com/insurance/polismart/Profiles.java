@@ -5,8 +5,13 @@ public class Profiles {
 
         JDBC = "jdbc",
         DATAJPA = "datajpa",
-        JPA = "jpa";
+        JPA = "jpa",
+        POSTGRESQL = "postgresql",
+        MONGODB = "mongodb";
 
-    public static final String DB_IMPLEMENTATION = JPA;
+    public static final String ACTIVE_REPOSITORY = JPA;
+    public static final String ACTIVE_DB = POSTGRESQL;
+    public static final String ACTIVE_PROFILE = ACTIVE_REPOSITORY+","+ACTIVE_DB;
+
 
 }

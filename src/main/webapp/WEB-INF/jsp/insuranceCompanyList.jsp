@@ -115,7 +115,7 @@
                         <label for="content" class="control-label col-xs-3"><spring:message code="insurance.tableContent"/></label>
 
                         <div class="col-xs-9">
-                            <input type="text" class="form-control" id="content" name="content" placeholder="Logotype">
+                            <input type="file" class="form-control" id="content" name="content" placeholder="Logotype">
                         </div>
                     </div>
 
