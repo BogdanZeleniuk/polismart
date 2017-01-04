@@ -83,6 +83,7 @@
                         <table class="table table-striped display" id="datatable">
                             <thead>
                             <tr>
+                                <th><spring:message code="insurance.tableContent"/></th>
                                 <th><spring:message code="insurance.tableName"/></th>
                                 <th><spring:message code="insurance.tableDescription"/></th>
                                 <th><spring:message code="insurance.tableFranchise"/></th>
@@ -109,6 +110,14 @@
             <div class="modal-body">
                 <form:form class="form-horizontal" method="post" id="detailsForm">
                     <input type="hidden" id="id" name="id">
+
+                    <div class="form-group">
+                        <label for="content" class="control-label col-xs-3"><spring:message code="insurance.tableContent"/></label>
+
+                        <div class="col-xs-9">
+                            <input type="text" class="form-control" id="content" name="content" placeholder="Logotype">
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label for="name" class="control-label col-xs-3"><spring:message code="insurance.tableName"/></label>

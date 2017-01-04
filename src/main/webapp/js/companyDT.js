@@ -21,6 +21,12 @@ $(function () {
         "info": true,
         "columns": [
             {
+                "data": "content",
+                "render": function (data, type, row) {
+                    return '<img src="'+data+'">';
+                }
+            },
+            {
                 "data": "name"
             },
             {
