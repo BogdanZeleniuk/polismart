@@ -143,29 +143,31 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="population" class="control-label col-sm-3"><spring:message code="insurance.tablePopulation"/></label>
+                        <label for="population" class="control-label col-xs-3"><spring:message code="insurance.tablePopulation"/></label>
 
-                        <div class="radio-inline">
-                            <input type="radio" class="col-xs-2" id="population" name="population" value="Kiev"><spring:message code="insurance.kiev"/><br/>
-                            <input type="radio" class="col-xs-2" id="population" name="population" value="Kiev district"><spring:message code="insurance.kievDistrict"/><br/>
-                            <input type="radio" class="col-xs-2" id="population" name="population" value="more than 1 million"><spring:message code="insurance.moreOneMillion"/><br/>
-                            <input type="radio" class="col-xs-2" id="population" name="population" value="to 1 million"><spring:message code="insurance.toOneMillion"/><br/>
-                        </div>
-                        <div class="radio-inline">
-                            <input type="radio" class="col-xs-2" id="population" name="population" value="to half of 1 million"><spring:message code="insurance.toHalfAMillion"/><br/>
-                            <input type="radio" class="col-xs-2" id="population" name="population" value="more than 100 thousand"><spring:message code="insurance.moreOneHundred"/><br/>
-                            <input type="radio" class="col-xs-2" id="population" name="population" value="to 100 thousand"><spring:message code="insurance.toOneHundred"/><br/>
-                            <input type="radio" class="col-xs-2" id="population" name="population" value="other"><spring:message code="insurance.other"/><br/>
+                        <div class="col-xs-9">
+                            <select class="form-control" id="population" name="population">
+                                <option value="Kiev"><spring:message code="insurance.kiev"/></option>
+                                <option value="Kiev district"><spring:message code="insurance.kievDistrict"/></option>
+                                <option value="more than 1 million"><spring:message code="insurance.moreOneMillion"/></option>
+                                <option value="to 1 million"><spring:message code="insurance.toOneMillion"/></option>
+                                <option value="to half of 1 million"><spring:message code="insurance.toHalfAMillion"/></option>
+                                <option value="more than 100 thousand"><spring:message code="insurance.moreOneHundred"/></option>
+                                <option value="to 100 thousand"><spring:message code="insurance.toOneHundred"/></option>
+                                <option value="other"><spring:message code="insurance.other"/></option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="engine_power" class="control-label col-xs-3"><spring:message code="insurance.tableEngine_Power"/></label>
 
-                        <div class="radio-inline">
-                            <input type="radio" class="col-xs-2" id="engine_power" name="engine_power" value="more than 3.0"><spring:message code="insurance.engineThree"/><br/>
-                            <input type="radio" class="col-xs-2" id="engine_power" name="engine_power" value="more than 2.0"><spring:message code="insurance.engineTwo"/><br/>
-                            <input type="radio" class="col-xs-2" id="engine_power" name="engine_power" value="more than 1.6"><spring:message code="insurance.engineOne"/><br/>
-                            <input type="radio" class="col-xs-2" id="engine_power" name="engine_power" value="to 1.6"><spring:message code="insurance.engineToOne"/><br/>>
+                        <div class="col-xs-9">
+                            <select class="form-control" id="engine_power" name="engine_power">
+                                <option value="more than 3.0"><spring:message code="insurance.engineThree"/></option>
+                                <option value="more than 2.0"><spring:message code="insurance.engineTwo"/></option>
+                                <option value="more than 1.6"><spring:message code="insurance.engineOne"/></option>
+                                <option value="to 1.6"><spring:message code="insurance.engineToOne"/></option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
