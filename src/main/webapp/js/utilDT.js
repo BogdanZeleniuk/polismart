@@ -49,7 +49,7 @@ function updateTableByData(data) {
 }
 
 function save() {
-    form = $('#detailsForm')
+    form = $('#detailsForm');
     $.ajax({
         type: "POST",
         url: ajaxUrl,
