@@ -1,5 +1,6 @@
 package com.insurance.polismart.config;
 
+import com.mongodb.Mongo;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -8,6 +9,9 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
@@ -21,11 +25,10 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.net.UnknownHostException;
 import java.util.Properties;
 
-import static com.insurance.polismart.Profiles.ACTIVE_DB;
-import static com.insurance.polismart.Profiles.ACTIVE_PROFILE_MONGODB;
-import static com.insurance.polismart.Profiles.ACTIVE_REPOSITORY;
+import static com.insurance.polismart.Profiles.*;
 
 @Configuration
 @EnableTransactionManagement
@@ -64,6 +67,24 @@ public class JpaConfiguration {
     }
 
     @Bean
+    @Profile({MONGODB,DATAMONGODB})
+    public Mongo mongo() throws UnknownHostException {
+        return new Mongo("localhost");
+    }
+
+    @Bean
+    @Profile({MONGODB,DATAMONGODB})
+    public MongoDbFactory mongoDbFactory() throws Exception {
+        return new SimpleMongoDbFactory(new Mongo(), "polismart");
+    }
+
+    @Bean
+    @Profile({MONGODB,DATAMONGODB})
+    public MongoTemplate mongoTemplate() throws Exception {
+        return new MongoTemplate(mongo(), "polismart");
+    }
+
+    @Bean
     @Profile({ACTIVE_DB, ACTIVE_REPOSITORY})
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
         return new PersistenceExceptionTranslationPostProcessor();
@@ -77,14 +98,6 @@ public class JpaConfiguration {
         dataSource.setUrl("jdbc:postgresql://localhost:5432/polismart");
         dataSource.setUsername( "postgres" );
         dataSource.setPassword( "password" );
-        return dataSource;
-    }
-
-    @Bean
-    @Profile(ACTIVE_PROFILE_MONGODB)
-    public DataSource dataSourceMongoDB(){
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUrl("mongodb://localhost:27017/polismart");
         return dataSource;
     }
 
