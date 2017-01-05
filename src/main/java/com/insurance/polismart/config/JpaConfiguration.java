@@ -24,6 +24,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 import static com.insurance.polismart.Profiles.ACTIVE_DB;
+import static com.insurance.polismart.Profiles.ACTIVE_PROFILE_MONGODB;
 import static com.insurance.polismart.Profiles.ACTIVE_REPOSITORY;
 
 @Configuration
@@ -76,6 +77,14 @@ public class JpaConfiguration {
         dataSource.setUrl("jdbc:postgresql://localhost:5432/polismart");
         dataSource.setUsername( "postgres" );
         dataSource.setPassword( "password" );
+        return dataSource;
+    }
+
+    @Bean
+    @Profile(ACTIVE_PROFILE_MONGODB)
+    public DataSource dataSourceMongoDB(){
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setUrl("mongodb://localhost:27017/polismart");
         return dataSource;
     }
 
